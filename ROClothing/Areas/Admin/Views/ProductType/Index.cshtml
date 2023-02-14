@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ProductType>;
+
+<div class="orange-headers">
+    <h1>PRODUCT TYPE MANAGEMENT</h1>
+</div>
+
+<div class="container mt-4 mb-4">
+    <div class="row">
+        <div class="col align-content-center">
+             <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn">
+                 <i class="bi bi-house"></i></a><span> &nbsp; > &nbsp; PRODUCT TYPE</span>
+        </div>
+        <div class="col text-end">
+            <a><i class="bi bi-grid view-type"></i></a>
+        </div>
+        <div class="col">
+            <a><i class="bi bi-list view-type"></i></a>
+            @*<a class="btn bg-highlight" asp-action="Upsert"><i class="bi bi-plus-square"></i> Create Product Type</a>*@
+            <button type="button" class="btn bg-highlight" data-bs-toggle="modal" data-bs-target="#addProductType">
+                <i class="bi bi-plus-square"></i> Create Product Type
+            </button>
+        </div>
+    </div>
+
+    <div class="row pt-5">
+        @foreach (var item in Model)
+        {
+                <div class="col-3">
+                    <div class="product-item bg-vlightgray pb-3">
+                        <div class="product-img-container">
+                            <img class="img-fluid" src="@item.ProductTypeImage">
+                        </div>
+                        <div class="product-item-text p-2 text-center">
+                            <h4>@item.ProductTypeName</h4>
+                        </div>
+                        <div class="text-center">
+                            <a class="btn btn-secondary" asp-action="Upsert" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id" onclick="return ConfirmDelete()"><i class="bi bi-trash-fill"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        function ConfirmDelete()
+        {
+            const swalWithBootstrapButtons = Swal.mixin({
+              customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+              },
+              buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Yes, delete it!',
+              cancelButtonText: 'No, cancel!',
+              reverseButtons: true
+            }).then((result) => {
+              if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                    return true;
+                )
+              } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+              ) {
+                swalWithBootstrapButtons.fire(
+                  'Cancelled',
+                  'Your imaginary file is safe :)',
+                  'error'
+                    return false;
+                )
+              }
+            })
+        }
+    </script>
+}

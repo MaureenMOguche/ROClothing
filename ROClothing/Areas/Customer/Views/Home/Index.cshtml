@@ -1,0 +1,116 @@
+﻿@using ROClothing.Models.ViewModels;
+@model ProductProductTypeVM
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="hero">
+	
+</div>
+
+<br />
+
+<div class="container mt-5">
+	<div class="row row-eq-height">
+	@foreach (var item in Model.productTypeList)
+	{
+		<div class="col-lg">
+			<div class="home-category p-2 border-bottom">
+				<h3 class="text-center pb-3 home-text-title">SHOP @item.ProductTypeName</h3>
+				<div>
+					<img class="img-fluid" src="@item.ProductTypeImage">
+				</div>
+				<div class="row pt-3">
+					<div class="col">
+						<h5>@item.ProductTypeName</h5>
+					</div>
+					<div class="col">
+						<h5 class="text-secondary">Starting at
+							<span class="text-highlight"><del>N</del>
+								@Model.StartingPrice</span>
+						</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+</div>
+</div>
+
+<br />
+<br />
+
+<div class="container mt-5">
+	<h2 class="text-center featured-title mt-4 mb-4">FEATURED PRODUCTS</h2>
+	<div class="row">
+		@foreach(var item in Model.productList)
+		{
+			<div class="col-lg-3">
+					   <div class="product-item">
+							<div class="product-img-container">
+								<img src="@item.ProductImage" class="img-fluid">
+								<a class="btn bg-highlight details">VIEW DETAILS</a>
+							</div>
+								<div class="product-item-text text-center mt-2 p-3">
+								<div class="favorite-item">
+								  
+								</div>
+								<p class="product-name">@item.ProductName</p>
+								<div class="rating">
+									<i class="bi bi-star-fill"></i>
+									<i class="bi bi-star-fill"></i>
+									<i class="bi bi-star-fill"></i>
+									<i class="bi bi-star-fill"></i>
+									<i class="bi bi-star-fill"></i>
+								</div>
+								<h6 class="product-price"><del>N</del>@item.Price</h6>                     
+
+						</div>
+						</div>              
+					 </div>
+		}
+	</div>
+</div>
+<br /><br /><br />
+
+<hr class="w-75 m-auto"/>
+
+<div class="container mt-5 mb-5">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="about-us-title">
+		<h5 class="vertical-align">WHO WE ARE</h5>
+		<h1>A <span>Story</span><br />Aout Us</h1>
+	</div>
+		</div>	
+		<div class="col-lg-8 col-md-4">
+			<div class="about-image-cont">
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-10 m-auto mt-5">
+		<p class="about-us-text">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+			eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet 
+			consectetur adipiscing elit duis tristique sollicitudin nibh. Turpis 
+			massa sed elementum tempus egestas sed sed risus pretium. Tellus in 
+			hac habitasse platea dictumst. Amet porttitor eget dolor morbi. In 
+			est ante in nibh mauris cursus mattis molestie a. Arcu ac tortor dignissim
+			convallis aenean et. Adipiscing commodo elit at imperdiet dui accumsan. 
+			<br />
+			<br />
+
+			
+			Interdum velit euismod in pellentesque massa. Nisl nisi scelerisque eu 
+			ultrices vitae auctor eu augue. Volutpat est velit egestas dui id ornare.
+			Integer vitae justo eget magna fermentum iaculis eu non. Turpis cursus in 
+			hac habitasse. Purus sit amet volutpat consequat mauris nunc congue nisi vitae.
+			Massa ultricies mi quis hendrerit dolor magna eget est lorem. Mauris in aliquam
+			sem fringilla ut morbi tincidunt augue interdum. A diam maecenas sed enim ut sem viverra.
+			<br />
+
+
+		</p>
+	</div>
+</div>

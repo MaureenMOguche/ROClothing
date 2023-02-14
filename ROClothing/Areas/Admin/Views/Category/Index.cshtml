@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Category>;
+
+<div class="orange-headers">
+    <h1>CATEGORY MANAGEMENT</h1>
+</div>
+
+<div class="container mt-4 mb-4">
+       <div class="row">
+        <div class="col align-content-center">
+             <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn">
+                 <i class="bi bi-house"></i></a><span> &nbsp; > &nbsp; CATEGORY</span>
+        </div>
+        <div class="col text-end">
+            <a><i class="bi bi-grid view-type"></i></a>
+        </div>
+        <div class="col">
+            <a><i class="bi bi-list view-type"></i></a>
+            
+            @*My normal create button*@
+            @*<a class="btn bg-highlight" asp-action="Upsert"><i class="bi bi-plus-square"></i> Create Category</a>*@
+
+            @*Modal popup create button*@
+            <button type="button" class="btn bg-highlight" data-bs-toggle="modal" data-bs-target="#addProduct">
+                <i class="bi bi-plus-square"></i> Create Category
+            </button>
+        </div>
+    </div>
+
+    <div class="row pt-5">
+        @foreach (var item in Model)
+        {
+                    <div class="col-3">
+                        <div class="product-item bg-vlightgray pb-3">
+                            <div class="product-img-container">
+                                <img class="img-fluid" src="@item.CategoryImage">
+                            </div>
+                            <div class="product-item-text p-2 text-center">
+                                <h4>@item.CategoryName</h4>
+                            </div>
+                            <div class="text-center">
+                                <a class="btn btn-secondary" asp-action="Upsert" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash-fill"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@model ProductType;
+
+<div class="col-lg-10 m-auto">
+	<div class="row">
+		@if (Model.Id != 0)
+		{
+			<div class="col-lg-4">
+		<img src="@Model.ProductTypeImage" class="img-fluid"/>
+	</div>
+		}
+		<div class="col-lg-6 m-auto">
+	<div class="container p-4 bg-vlightgray">
+		<h2 class="mb-4">@(Model.Id != 0 ? "Edit" : "Create") Product Type</h2>
+		<form method="post" enctype="multipart/form-data">
+			<input asp-for="Id" hidden />
+			<input asp-for="ProductTypeImage" hidden />
+
+			<div class="mb-2 mt-2">
+				<label class="form-label" asp-for="ProductTypeName">
+					Product Type Name<span class="text-danger">*</span>
+				</label>
+				<input class="form-control" asp-for="ProductTypeName" />
+				<span asp-validation-for="ProductTypeName" class="text-danger sm-fnt"></span>
+			</div>
+
+			<div class="mb-2 mt-2">
+				<label class="form-label" asp-for="ProductTypeImage">
+					Product Type Image<span class="text-danger">*</span>
+				</label>
+				<input class="form-control" asp-for="ProductTypeImage" type="file" id="productType-image" name="productTypeImg"/>
+			</div>
+
+			<div class="mt-3">
+					@if (Model.Id != 0)
+					{
+						<button type="submit" class="btn w-100 bg-dark text-light">UPDATE</button>
+					}
+					else
+					{
+						<button type="submit" class="btn w-100 bg-dark text-light" onclick="return ValidateImage()">SUBMIT</button>
+					}
+			</div>
+		</form>
+	</div>
+</div>
+	</div>
+</div>
+
+
+
+
+@section Scripts{
+	<partial name="_ValidationScriptsPartial" />
+
+	<script>
+		function ValidateImage(){
+			if (document.getElementById("productType-image").value === "")
+			{
+					Swal.fire({
+					  icon: 'error',
+					  title: 'Oops...',
+					  text: 'Please select an image!',
+					  
+					})
+					return false;
+			}
+			return true;
+		}
+	</script>
+}

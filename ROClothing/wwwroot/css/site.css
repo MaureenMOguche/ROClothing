@@ -1,0 +1,367 @@
+:root {
+    --highlight: #c24407;
+    --mygray: #646262;
+    --verylightgray: #f4f4f4;
+    --lighthighlight: #bb653b;
+}
+
+.text-highlight{
+    color: var(--highlight);
+}
+
+.bg-highlight{
+    background-color: var(--highlight);
+    color: white;
+}
+.bg-vlightgray{
+    background-color: var(--verylightgray);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+
+/*===========Utility==============*/
+.sm-fnt{
+    font-size: .85rem;
+}
+.major-row{
+    grid-auto-rows: 1fr;
+}
+.my-box-shadow{
+    box-shadow: 0 0 10px black;
+}
+
+/*===========Header Photos==============*/
+.header-photos {
+    width: 100%;
+    height: 250px;
+}
+
+.orange-headers{
+    height: 100px;
+    background-color: var(--lighthighlight);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.orange-headers h1{
+    font-size: 3rem;
+    color: var(--verylightgray);
+}
+
+.register-header {
+    display: flex;
+    height: 150px;
+    background-color: lightgray;
+    align-items: center;
+}
+
+.register-header-content p {
+    font-size: .9rem;
+    text-transform: uppercase;
+}
+
+.register-header a {
+    text-decoration: none;
+    color: var(--highlight);
+}
+
+.register-header h2 {
+    font-weight: 700;
+}
+.nav-link {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+
+.nav-link:hover {
+    background-color: black;
+    color: white !important;
+}
+
+.dropdown-item:hover{
+    background-color: black;
+    color: white;
+}
+
+
+/*======================
+            Footer
+=======================*/
+.my-footer {
+    margin-top: 100px;
+    padding: 60px 0;
+}
+
+    .my-footer a {
+        color: white;
+        text-decoration: none;
+    }
+
+.social-icons i {
+    padding: 10px 12px;
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+    .social-icons i:hover {
+        background-color: white;
+    }
+
+.subscribe {
+    display: flex;
+}
+
+    .subscribe input {
+        border-radius: 25px 0 0 25px;
+        padding: 12px;
+    }
+
+.btn-subscribe {
+    background-color: var(--highlight);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 0 25px 25px 0;
+}
+.my-footer a {
+    color: var(--verylightgray);
+}
+
+
+
+/*========================
+        Before Navigation
+========================*/
+.phone-logo-group {
+    display: flex;
+    align-items: center;
+    height: 120px;
+    max-height: 120px;
+}
+
+.phone-group {
+    position: relative;
+}
+
+.phone-no-group {
+    position: relative;
+    left: 35px;
+}
+
+    .phone-no-group p {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .phone-no-group span {
+        font-size: .8rem;
+    }
+
+.bi-telephone-fill {
+    position: relative;
+    font-size: 2rem;
+    top: 55px;
+}
+
+.logo-container {
+    height: 120px;
+    padding: 20px;
+    text-align: center;
+}
+
+    .logo-container img {
+        max-height: 100%;
+    }
+
+.top-icons i {
+    font-size: 2rem;
+    padding: 0 10px;
+}
+
+/*============Home ================*/
+.hero {
+    width: 100%;
+    height: 500px;
+    background-image: url("/images/pageimages/hero-bg.jpg");
+    background-size: cover;
+}
+
+
+/*============= Register =================*/
+form#registerForm,
+form#account {
+    margin-top: 30px;
+}
+
+
+
+
+/*======================
+            Products Pages
+=======================*/
+.range col-5 {
+    position: relative;
+}
+.naira-sign {
+    position:absolute;
+    
+}
+
+/*==== grid and list icons ==========*/
+i.view-type{
+    font-size: 1.5rem;
+    padding: 5px 10px;
+    border: 2px solid var(--verylightgray);
+}
+
+
+/*======================
+            shop
+=======================*/
+.product-name {
+    font-size: 1.2rem;
+}
+.product-price {
+    font-size: 1.2rem;
+    color: var(--mygray)
+}
+.product-item {
+    background-color: var(--verylightgray);
+}
+.product-img-container{
+    display: table-cell;
+    height: 350px;
+    vertical-align: middle;
+    max-height: 350px;
+    border-bottom: 2px solid var(--highlight);
+    position:relative;
+    overflow:hidden;
+}
+.product-img-container img{
+    max-height: 100%;
+    max-width: 100%;
+}
+.details {
+    padding: 20px 0;
+    width: 100%;
+    position: absolute;
+    bottom: -100%;
+    opacity: 0;
+    left: 0;
+    transition: all .5s ease-in;
+}
+.details a:hover {
+    color: white;
+}
+.product-item:hover .details{
+    bottom: 0;
+    opacity: 1;
+}
+.home-text-title,
+.featured-title{
+    position:relative;
+    margin: 20px 0;
+}
+.home-text-title::after,
+.featured-title::after{
+        content: "";
+        width: 30px;
+        height: 3px;
+        background-color: var(--highlight);
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+}
+
+.bottom-image{
+    height: 250px;
+}
+
+
+/*========================
+        About Us Area
+==========================*/
+.about-us-title{
+    position:relative;
+}
+.about-us-title h1{
+    font-size: 4rem;
+    line-height: 4rem;
+}
+.about-us-title h5{
+    position:absolute;
+    transform:rotate(-90deg);
+    left:-80px;
+    top: 60px;
+    
+}
+.about-us-title h1 span {
+        font-weight: 300;
+        color: var(--highlight);
+}
+.about-image-cont{
+    height: 150px;
+    background-image: url("/images/pageImages/clothesbg.png");
+    background-size:contain;
+}
+.about-us-text{
+    color: var(--mygray);
+    font-size: 1.2rem;
+}
+
+/*=================================
+            Details
+=================================*/
+.cart-buttons a{
+    font-size: 1.5rem;
+    text-decoration: none;
+    cursor:pointer;
+}
+.cart-buttons h3{
+    font-weight:bold;
+}
+.social-icons-details i {
+    padding: 10px 13px;
+    border: 2px solid var(--mygray);
+    border-radius: 50%;
+    transition: all .2s ease-in;
+}
+.social-icons-details i:hover{
+    background-color:var(--highlight);
+    padding: 13px 16px;
+    color: white;
+    border: none;
+}
+.details-right{
+    position:relative;
+}
+.bi-x-circle{
+    font-size: 2.5rem;
+    position: absolute;
+    top: -35px;
+    right: -15px;
+    color: var(--highlight);
+}

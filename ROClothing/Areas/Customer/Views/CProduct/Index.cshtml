@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Product>
+
+<div class="product-shop-header">
+    <img src="~/images/pageImages/shop-header.png" class="w-100"/>
+</div>
+<div class="container mt-4 mb-4">
+    <a><i class="bi bi-house"></i> &nbsp; > &nbsp; SHOP </a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <div class="categories-small border p-4">
+                <h5>CATEGORIES</h5>
+                <p>Accessories</p>
+                <p>Accessories</p>
+                <p>Accessories</p>
+            </div>
+            <div class="price-small border p-4">
+                <h5>PRICE</h5>
+                <progress></progress>
+                <div class="row range gx-0">
+                    <div class="col-5">
+                        <p class="naira-sign"><del>N</del></p>
+                        <input class="w-100" />
+                    </div>
+                    <div class="col-2 text-center">To</div>
+                    <div class="col-5">
+                        <p class="naira-sign"><del>N</del></p>
+                        <input class="w-100" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="featured border p-4">
+                @{
+                    var featuredList = Model.Where(x => x.Price > 12000).Take(6);
+                }
+                @foreach(var item in featuredList)
+                {
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="@item.ProductImage" class="img-thumbnail">
+                        </div>
+                        <div class="col-8">
+                            <p>@item.ProductName</p>
+                            <p><del>N</del>@item.Price</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+        <div class="col-9">
+            <div class="row pb-3">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4">
+                   <div class="product-item">
+                        <div class="product-img-container">
+                            <img src="@item.ProductImage">
+                            <a class="btn bg-highlight details" asp-action="Details" asp-route-id="@item.Id">VIEW DETAILS</a>
+                        </div>
+                            <div class="product-item-text text-center mt-2 p-3">
+                            <div class="favorite-item">
+                               <p>
+                                   @*<span class="bg-secondary ps-2 pe-2 pt-1 pb-1">@item.Category.ProductType</span>*@
+                                   <span class="bg-info ps-2 pe-2 pt-1 pb-1">@item.Category.CategoryName</span>
+                               </p>
+                            </div>
+                            <p class="product-name">@item.ProductName</p>
+                            <div class="rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <h6 class="product-price"><del>N</del>@item.Price</h6>                     
+                    
+                    </div>
+                    </div>              
+                 </div>
+            }
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- Modal -->
+
+<!-- Modal -->
+@*<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <partial name="_DetailsPartial" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>*@
+
+@section Scripts{
+    <script>
+        function OpenDetailsModal(){
+            var modal = document.getElementById("details-modal");
+            modal.style.display = "block";
+        }
+    </script>
+}

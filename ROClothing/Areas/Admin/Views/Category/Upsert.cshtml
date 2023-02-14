@@ -1,0 +1,84 @@
+﻿@using ROClothing.Models.ViewModels;
+@model CategoryVM;
+
+
+
+<div class="col-lg-10 m-auto">
+	<div class="row major-row">
+	
+		@if (Model.category.Id != 0)
+		{
+			<div class="col-lg-4">
+				<img src="@Model.category.CategoryImage" />
+			</div>
+		}
+		<div class="col-lg-6 m-auto">
+		<div class="container p-4 bg-vlightgray">
+			<h2 class="mb-4">@(Model.category.Id == 0 ? "Create" : "Edit") Category</h2>
+			<form method="post" enctype="multipart/form-data">
+				<input asp-for="category.Id" hidden />
+				<input asp-for="category.CategoryImage" hidden />
+
+				<div class="mb-2 mt-2">
+					<label class="form-label" asp-for="category.CategoryName">
+						Category Name<span class="text-danger">*</span>
+					</label>
+					<input class="form-control" asp-for="category.CategoryName" />
+					<span asp-validation-for="category.CategoryName" class="text-danger sm-fnt"></span>
+				</div>
+
+				<div class="mb-2 mt-2">
+					<label class="form-label" asp-for="category.CategoryImage">
+						Category Image<span class="text-danger">*</span>
+					</label>
+					<input class="form-control" asp-for="category.CategoryImage" type="file" id="category-image" name="categoryImg"/>
+				</div>
+
+				<div class="mb-2 mt-2">
+					<label class="form-label" asp-for="category.ProductTypeId">
+						Product Type<span class="text-danger">*</span>
+					</label>
+					<select class="form-select" asp-for="category.ProductTypeId" asp-items="Model.producTypetList">
+						<option selected disabled>Select Product Type</option>
+					</select>
+				</div>
+
+				<div class="mt-3">
+						@if (Model.category.Id == 0)
+						{
+							<button type="submit" class="btn w-100 bg-dark text-light" onclick="return ValidateImage()">SUBMIT</button>
+						}
+						else
+						{
+							<button type="submit" class="btn w-100 bg-dark text-light">UPDATE</button>
+						}
+				</div>
+
+			</form>
+		</div>
+	</div>
+	</div>
+</div>
+
+
+
+
+@section Scripts{
+	<partial name="_ValidationScriptsPartial" />
+
+	<script>
+		function ValidateImage(){
+			if (document.getElementById("category-image").value === "")
+			{
+					Swal.fire({
+					  icon: 'error',
+					  title: 'Oops...',
+					  text: 'Please select an image!',
+					  
+					})
+					return false;
+			}
+			return true;
+		}
+	</script>
+}
