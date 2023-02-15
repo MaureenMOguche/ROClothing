@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ROClothing.Models;
 
 namespace ROClothing.Data.Data
 {
-    public class RODbContext : DbContext
+    public class RODbContext : IdentityDbContext
     {
         public RODbContext(DbContextOptions<RODbContext> options) : base(options)
         {

@@ -6,6 +6,7 @@ using ROClothing.Models.ViewModels;
 
 namespace ROClothing.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _dbContext;

@@ -4,6 +4,7 @@ using ROClothing.Models;
 
 namespace ROClothing.Areas.Admin.Controllers
 {
+	[Area("Admin")]
 	public class ProductTypeController : Controller
 	{
 		private readonly IUnitOfWork _dbContext;
