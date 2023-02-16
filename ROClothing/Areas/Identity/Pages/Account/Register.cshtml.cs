@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using ROClothing.Models;
 using ROClothing.Utility;
@@ -93,6 +95,9 @@ namespace ROClothing.Areas.Identity.Pages.Account
 
             [Display(Name = "State")]
             public string State { get; set; }
+            public string? Role { get; set; }
+            [ValidateNever]
+            public IEnumerable<SelectListItem> Roles { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -126,6 +131,15 @@ namespace ROClothing.Areas.Identity.Pages.Account
             }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            Input = new InputModel()
+            {
+                Roles = _roleManager.Roles.Select(x => x.Name).Select(j => new SelectListItem
+                {
+                    Text = j,
+                    Value = j,
+                })
+            };
+
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -149,6 +163,14 @@ namespace ROClothing.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    if (Input.Role == null)
+                    {
+                        await _userManager.AddToRoleAsync(user, UtilitySD.Customer);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, Input.Role);
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
