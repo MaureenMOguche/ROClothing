@@ -2,22 +2,17 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
+using ROClothing.Models;
+using ROClothing.Utility;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
 
 namespace ROClothing.Areas.Identity.Pages.Account
 {
@@ -29,13 +24,15 @@ namespace ROClothing.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +40,7 @@ namespace ROClothing.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -79,6 +77,23 @@ namespace ROClothing.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Display(Name = "Street Address")]
+            public string StreetAddress { get; set; }
+
+            [Display(Name = "City")]
+            public string City { get; set; }
+
+            [Display(Name = "State")]
+            public string State { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -102,6 +117,13 @@ namespace ROClothing.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (!await _roleManager.RoleExistsAsync(UtilitySD.SuperUser))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(UtilitySD.SuperUser));
+                await _roleManager.CreateAsync(new IdentityRole(UtilitySD.ContentManager));
+                await _roleManager.CreateAsync(new IdentityRole(UtilitySD.InventoryManager));
+                await _roleManager.CreateAsync(new IdentityRole(UtilitySD.Customer));
+            }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -116,6 +138,13 @@ namespace ROClothing.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                user.StreetAddress = Input.StreetAddress;
+                user.City = Input.City;
+                user.State = Input.State;
+
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -154,11 +183,11 @@ namespace ROClothing.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {

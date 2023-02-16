@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ROClothing.Data\ROClothing.Data.csproj" />
+    <ProjectReference Include="..\ROClothing.Utility\ROClothing.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
