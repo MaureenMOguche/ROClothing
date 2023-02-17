@@ -12,6 +12,8 @@ namespace ROClothing.Data.Repository
             CategoryRepo = new CategoryRepository(_db);
             ProductRepo = new ProductRepository(_db);
             ProductTypeRepo = new ProductTypeRepository(_db);
+            ApplicationUserRepo = new ApplicationUserRepository(_db);
+            ShoppingCartRepo = new ShoppingCartRepository(_db);
         }
 
         public IProductRepository ProductRepo { get; private set; }
@@ -20,6 +22,9 @@ namespace ROClothing.Data.Repository
 
         public ICategoryRepository CategoryRepo { get; private set; }
 
+        public IApplicationUserRepository ApplicationUserRepo { get; private set; }
+
+        public IShoppingCartRepository ShoppingCartRepo { get; private set; }
 
 
         //Save changes

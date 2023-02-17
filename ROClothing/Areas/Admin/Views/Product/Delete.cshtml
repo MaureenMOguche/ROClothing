@@ -1,0 +1,105 @@
+﻿@using ROClothing.Models.ViewModels;
+@model ProductVM;
+
+
+<div class="col-lg-10 m-auto">
+	<div class="row">
+		@if (Model.Product.Id != 0)
+		{
+			<div class="col-lg-4">
+				<img src="@Model.Product.ProductImage" class="img-fluid"/>
+			</div>
+		}
+		@*else
+		{
+			<div class="col-lg-4">
+				<img id="imgid" class="img-fluid"/>
+			</div>
+		}*@
+		<div class="col-lg-6 m-auto">
+	<div class="container p-4 bg-vlightgray">
+		<h2 class="mb-4">Delete Product?</h2>
+
+		<form method="post" enctype="multipart/form-data">
+			<input asp-for="Product.Id" hidden />
+			<input asp-for="Product.ProductImage" hidden />
+
+			<div class="mb-2 mt-2">
+				<label class="form-label" asp-for="Product.ProductName">
+					Product Name<span class="text-danger">*</span>
+				</label>
+				<input class="form-control" asp-for="Product.ProductName" disabled />
+				<span asp-validation-for="Product.ProductName" class="text-danger sm-fnt"></span>
+			</div>
+
+			<div class="mb-2 mt-2">
+				<label class="form-label" asp-for="Product.ProductDescription">
+					Product Description<span class="text-danger">*</span>
+				</label>
+						<textarea class="form-control" rows="3" asp-for="Product.ProductDescription" disabled></textarea>
+				<span asp-validation-for="Product.ProductDescription" class="text-danger sm-fnt"></span>
+			</div>
+
+			<div class="row">
+				<div class="col mb-2 mt-2">
+					<label class="form-label" asp-for="Product.ListPrice">
+						Product List Price<span class="text-danger">*</span>
+					</label>
+							<input class="form-control" asp-for="Product.ListPrice" disabled />
+					<span asp-validation-for="Product.ListPrice" class="text-danger sm-fnt"></span>
+				</div>
+
+				<div class="col mb-2 mt-2">
+					<label class="form-label" asp-for="Product.Price">
+						Product Price<span class="text-danger">*</span>
+					</label>
+							<input class="form-control" asp-for="Product.Price" disabled />
+					<span asp-validation-for="Product.Price" class="text-danger sm-fnt"></span>
+				</div>
+			</div>
+
+			<div class="mb-2 mt-2">
+				<label class="form-label" asp-for="Product.ProductImage">
+					Product Image<span class="text-danger">*</span>
+				</label>
+				<input class="form-control" asp-for="Product.ProductImage"
+							   type="file" accept="image/*" id="product-image" name="productImg" onchange="LoadFile()" disabled />
+			</div>
+			
+			<button type="submit" class="btn w-100 bg-dark text-light">DELETE</button>
+		</form>
+	</div>
+</div>
+	</div>
+</div>
+
+
+
+
+
+@section Scripts{
+	<partial name="_ValidationScriptsPartial" />
+
+	<script>
+		var LoadFile = function(event)
+		{
+			var image = document.getElementById("imgid");
+			image.src = URL.createObjectURL(event.target.files[0]);
+		}
+
+
+		function ValidateImage(){
+			if (document.getElementById("product-image").value === "")
+			{
+					Swal.fire({
+					  icon: 'error',
+					  title: 'Oops...',
+					  text: 'Please select an image!',
+					  
+					})
+					return false;
+			}
+			return true;
+		}
+	</script>
+}

@@ -4,6 +4,8 @@
     ViewData["Title"] = "Details";
 }
 
+<form method="post">
+    <input asp-for="ProductId" hidden />
 <div class="container mt-5">
     <div class="col-lg-8 m-auto p-5 my-box-shadow bg-vlightgray">
         <div class="row">
@@ -32,27 +34,24 @@
                 
                 <hr />
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col">
                         <div class="row cart-buttons">
-                            <div class="col">
-                                <a asp-page-handler="">-</a>
+                            <div class="col-3">
+                                <a onclick="RemoveItem()" class="btn btn-secondary">-</a>
                             </div>
-                            <div class="col border-1">
-                                <h3>@Model.NoOfItems</h3>
+                            <div class="col-6 text-center">
+                                <h3><input class="cart-input" id="input-no" asp-for="@Model.NoOfItems"></h3>
                             </div>
-                            <div class="col border-1">
-                                <a asp-page-handler="">+</a>
+                            <div class="col-3">
+                                <a onclick="AddItem()" class="btn btn-success">+</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col">
                         <button class="btn bg-black text-light" type="submit">
                             <i class="bi bi-bag-check-fill"></i> &nbsp;
                             ADD TO CART
                         </button>
-                    </div>
-                    <div class="col-2">
-                        
                     </div>
                 </div>
                 <hr />
@@ -68,3 +67,32 @@
         </div>
     </div>
 </div>
+</form>
+
+@section Scripts{
+    <script>
+        function AddItem(){
+            let count = document.getElementById("input-no").value;
+            if (count === 1000)
+            {
+                count = 1000;
+            }
+            else
+            {
+                count++;
+            }
+            document.getElementById("input-no").value = count;
+        }
+
+        function RemoveItem() {
+            let count = document.getElementById("input-no").value;
+            if (count === 1) {
+                count = 1;
+            }
+            else {
+                count--;
+            }
+            document.getElementById("input-no").value = count;
+        }
+    </script>
+}

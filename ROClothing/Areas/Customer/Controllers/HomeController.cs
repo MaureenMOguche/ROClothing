@@ -20,15 +20,23 @@ namespace ROClothing.Areas.Customer.Controllers
 
 		public IActionResult Index()
 		{
-			ProductProductTypeVM productProductTypeVM = new()
+			if (_dbContext.ProductTypeRepo.GetAll().ToList().Count >= 1)
 			{
-				productTypeList = _dbContext.ProductTypeRepo.GetAll(),
-				productList = _dbContext.ProductRepo.GetAll()
-				.Where(x => x.Price > 10000 && x.Price < 20000).Take(8),
-				StartingPrice = (decimal)_dbContext.ProductRepo.GetAll().Min(x => x.Price),
-			};
+				ProductProductTypeVM productProductTypeVM = new()
+				{
+					productTypeList = _dbContext.ProductTypeRepo.GetAll(),
+					productList = _dbContext.ProductRepo.GetAll()
+					.Where(x => x.Price > 10000 && x.Price < 20000).Take(8),
+					StartingPrice = (decimal)_dbContext.ProductRepo.GetAll().Min(x => x.Price),
+				};
+				return View(productProductTypeVM);
+			}
+			else
+			{
+				ProductProductTypeVM productProductTypeVM = new();
+				return View( productProductTypeVM);
+			}
 
-			return View(productProductTypeVM);
 		}
 
 

@@ -18,6 +18,7 @@ using System.Text.Encodings.Web;
 
 namespace ROClothing.Areas.Identity.Pages.Account
 {
+    [Area("Identity")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;

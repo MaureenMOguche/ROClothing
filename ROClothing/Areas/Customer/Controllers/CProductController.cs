@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ROClothing.Data.Repository.IRepository;
 using ROClothing.Models;
 using ROClothing.Models.ViewModels;
+using System.Security.Claims;
 
 namespace ROClothing.Areas.Admin.Controllers
 {
 	[Area("Customer")]
 	public class CProductController : Controller
 	{
+		[BindProperty]
+		public ShoppingCart cartItems { get; set; }
 		private readonly IUnitOfWork _dbContext;
 		public CProductController(IUnitOfWork dbContext)
 		{
@@ -19,14 +23,42 @@ namespace ROClothing.Areas.Admin.Controllers
 			return View(productList);
 		}
 
-		public IActionResult Details(int id)
+		public IActionResult Details(int ProductId)
 		{
-			ShoppingCart cartItems = new()
+			cartItems = new()
 			{
 				NoOfItems = 1,
-				Product = _dbContext.ProductRepo.FindFirst(x => x.Id == id, includeProperties: "Category"),
+				ProductId = ProductId,
+				Product = _dbContext.ProductRepo.FindFirst(x => x.Id == ProductId, includeProperties: "Category"),
 			};
 			return View(cartItems);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		[Authorize]
+		public IActionResult Details(ShoppingCart shoppingCart)
+		{
+			var claimsIdentity = (ClaimsIdentity)User.Identity;
+			var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+			shoppingCart.ApplicationUserId = claim.Value;
+
+			var cartFromDb = _dbContext.ShoppingCartRepo.FindFirst(x => x.ProductId == shoppingCart.ProductId);
+
+			if (cartFromDb == null)
+			{
+				_dbContext.ShoppingCartRepo.Add(shoppingCart);
+			}
+			else
+			{
+				_dbContext.ShoppingCartRepo.IncrementShoppingCart(cartFromDb, shoppingCart.NoOfItems);
+			}
+			_dbContext.Save();
+
+
+
+			return RedirectToAction(nameof(Index));
 		}
 	}
 }

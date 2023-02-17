@@ -103,5 +103,42 @@ namespace ROClothing.Areas.Admin.Controllers
 
 			return RedirectToAction("Index");
 		}
+
+
+
+		public IActionResult Delete(int id)
+		{
+			ProductVM productVm = new();
+			productVm.Product = _dbContext.ProductRepo.FindFirst(x => x.Id == id);
+			return View(productVm);
+		}
+
+		[HttpPost]
+		public IActionResult Delete(ProductVM productVM, IFormFile? productImg)
+		{
+			if (ModelState.IsValid)
+			{
+				var webrootpath = _hostEnvironment.WebRootPath;
+
+		  
+					//delete image
+
+						var oldImage = Path.Combine(webrootpath, productVM.Product.ProductImage.TrimStart('\\'));
+						if (System.IO.File.Exists(oldImage))
+						{
+							System.IO.File.Delete(oldImage);
+						}
+ 
+					
+
+			   
+				_dbContext.ProductRepo.Remove(productVM.Product);
+				_dbContext.Save();
+				TempData["Success"] = "Successfully created new product";
+			}
+
+
+			return RedirectToAction("Index");
+		}
 	}
 }

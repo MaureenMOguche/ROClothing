@@ -30,13 +30,13 @@
                 </div>
 
                 <div class="col logo-container">
-                    <a href="~/../Index"><img src="~/images/pageimages/reenclothing.png" /></a>
+                    <a asp-controller="Home" asp-action="Index"><img src="~/images/pageimages/reenclothing.png" /></a>
                 </div>
                 <div class="col text-end">
                     <div class="top-icons">
                         <i class="bi bi-person"></i>
                         <i class="bi bi-search"></i>
-                        <i class="bi bi-cart-plus"></i>
+                        <a asp-controller="Cart" asp-action="Index"><i class="bi bi-cart-plus"></i></a>
                     </div>
                 </div>
             </div>
@@ -59,19 +59,24 @@
                             <a class="nav-link text-dark" asp-area="Customer" asp-controller="CProduct" asp-action="Index">PRODUCTS</a>
                         </li>
                     </ul>
+                    
+                    @if (User.IsInRole(@UtilitySD.SuperUser))
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-gear"></i> Content Management
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="ProductType" asp-action="Index">Product Type</a></li>
+                                </ul>
+                            </li>
+                        </ul>
 
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-gear"></i> Content Management
-                          </a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a></li>
-                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a></li>
-                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="ProductType" asp-action="Index">Product Type</a></li>
-                          </ul>
-                        </li>
-                    </ul>
+                    }
+
 
                     <partial name="_LoginPartial" />
                    

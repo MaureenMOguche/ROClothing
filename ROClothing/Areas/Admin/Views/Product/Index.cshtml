@@ -37,7 +37,7 @@
                         <td valign="middle">@item.Price</td>
                         <td valign="middle">
                             <a class="btn btn-secondary" asp-action="Upsert" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
-                            <a class="btn btn-danger" asp-action="Upsert" asp-route-id="@item.Id"><i class="bi bi-trash-fill"></i></a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash-fill"></i></a>
                         </td>
                     </tr>
                 }

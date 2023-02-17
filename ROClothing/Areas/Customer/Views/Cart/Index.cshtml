@@ -1,0 +1,80 @@
+﻿@using ROClothing.Models.ViewModels;
+@model ShoppingCartVM;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container mt-3">
+    <div class="col-9 m-auto">
+        @foreach (var item in Model.cartList)
+        {
+            <div class="row h-100">
+                <div class="col-lg-2">
+                    <img src="@item.Product.ProductImage" class="img-fluid"/>
+                </div>
+                <div class="col-lg-5 my-auto">
+                    <h3>@item.Product.ProductName</h3>
+                </div>
+                <div class="col-lg-5 my-auto">
+                    <div class="row h-100">
+                        <div class="col-5 my-auto">
+                            <div class="row h-100">
+                                <div class="col-3 text-end my-auto">
+                                    <a asp-action="MinusCartItem" asp-route-cartId="@item.Id" class="cart-buttons p-2">
+                                        <i class="bi bi-dash"></i>
+                                    </a>
+                                </div>
+                                <div class="col-6 text-center my-auto">
+                                    <h5>@item.NoOfItems</h5>
+                                </div>
+                                <div class="col-3 my-auto">
+                                    <a asp-action="PlusCartItem" asp-route-cartId="@item.Id" class="cart-buttons p-2">
+                                        <i class="bi bi-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center my-auto">
+                            <p>X</p>
+                        </div>
+                        <div class="col-4 my-auto">
+                            <h4>@item.Product.Price</h4>
+                        </div>
+                        <div class="col-1 my-auto">
+                            <a class="btn" asp-action="RemoveCartItem">
+                                <i class="bi bi-x-circle"></i>
+                            </a>
+                        <div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <hr />
+        <div class="row h-100">
+            <div class="col my-auto">
+                <a asp-controller="CProduct" asp-action="Index" class="btn text-highlight fw-bold">
+                   <i class="bi bi-arrow-back"></i> Continue Shopping
+                </a>
+            </div>
+            <div class="col my-auto">
+                <div class="row h-100">
+                    <div class="col-8 text-secondary text-end my-auto">
+                        <p>Total</p>
+                    </div>
+                    <div class="col text-end my-auto">
+                        <h4><strike>N</strike>@Model.cartTotal</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-end">
+                <button
+            </div>
+        </div>
+    </div>         
+</div>

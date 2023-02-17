@@ -51,6 +51,10 @@ html {
 .my-box-shadow{
     box-shadow: 0 0 10px black;
 }
+input.cart-input{
+    width: 85px;
+    border:none;
+}
 
 /*===========Header Photos==============*/
 .header-photos {

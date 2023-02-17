@@ -17,8 +17,18 @@ builder.Services.AddDbContext<RODbContext>(options => options.UseSqlServer(
 	"name=RoConnection"
 	));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+	options => options.SignIn.RequireConfirmedAccount = false)
 	.AddDefaultTokenProviders().AddEntityFrameworkStores<RODbContext>();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	options.LoginPath = "/Identity/Account/Login";
+	options.LogoutPath = "/Identity/Account/Logout";
+	options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+
+
+});
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
